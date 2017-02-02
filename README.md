@@ -30,76 +30,50 @@ Leaky Relu Activation layers are used to help reduce the number of ['dead'](http
 The network has a total of 187k parameters. This is less than the NVIDIA model which has 250k. Interestingly, it seems that increasing the depth of the network worsens performance.
 
 
-
-BatchNormalization - (None, 64, 64, 3)
-____________________________________________________________________________________________________
-Convolution2D - (None, 60, 60, 24)
-
-BatchNormalization
-
-LeakyReLU
-
-MaxPooling2D - (None, 30, 30, 24)
-____________________________________________________________________________________________________
-Convolution2D - (None, 26, 26, 36)
-
-BatchNormalization
-
-LeakyReLU
-____________________________________________________________________________________________________
-Convolution2D - (None, 22, 22, 48)
-
-BatchNormalization
-
-LeakyReLU
-
-MaxPooling2D - (None, 11, 11, 48)
-____________________________________________________________________________________________________
-Convolution2D - (None, 9, 9, 56)
-
-BatchNormalization
-
-LeakyReLU
-____________________________________________________________________________________________________
-Convolution2D - (None, 7, 7, 64)
-
-BatchNormalization
-
-LeakyReLU
-
-MaxPooling2D - (None, 3, 3, 64)
-____________________________________________________________________________________________________
-Flatten - (576)
-
-Dense - (100)
-
-BatchNormalization
-
-LeakyReLU
-
-Dropout - (50%)
-____________________________________________________________________________________________________
-Dense - (50)
-
-BatchNormalization
-
-LeakyReLU
-
-Dropout - (50%)
-____________________________________________________________________________________________________
-Dense - (10)
-
-BatchNormalization
-
-LeakyReLU
-
-Dropout - (50%)
-____________________________________________________________________________________________________
-Dense - (1)
-
-BatchNormalization
-
-Activation - (1)
+| Layer | Output Shape | Parameters |
+| ----- | ------------ | ---------- |
+| BatchNormalization | (None, 64, 64, 3) | 6 |
+| --- | --- | --- |
+| Convolution2D | (None, 60, 60, 24) | 1824 |
+| BatchNormalization | | 48 |
+| LeakyReLU | | |
+| MaxPooling2D | (None, 30, 30, 24) | |
+| --- | --- | --- |
+| Convolution2D | (None, 26, 26, 36) | 21636 |
+| BatchNormalization | | 72 |
+| LeakyReLU | | |
+| Convolution2D | (None, 22, 22, 48) | 43248|
+| BatchNormalization | | 96 |
+| LeakyReLU | | |
+| MaxPooling2D | (None, 11, 11, 48) | |
+| --- | --- | --- |
+| Convolution2D | (None, 9, 9, 56) | 24248 |
+| BatchNormalization | | 112 |
+| LeakyReLU | | |
+| Convolution2D | (None, 7, 7, 64) | 32320 |
+| BatchNormalization | | 128 |
+| LeakyReLU | | |
+| MaxPooling2D | (None, 3, 3, 64) | |
+| --- | --- | --- |
+| Flatten | (576) | |
+| Dense | (100) | 57700 |
+| BatchNormalization | | 200 |
+| LeakyReLU | | |
+| Dropout | 50% | |
+| --- | --- | --- |
+| Dense | (50) | 5050 |
+| BatchNormalization | | 100 |
+| LeakyReLU | | |
+| Dropout | 50% | |
+| --- | --- | --- |
+| Dense | (10) | 510 |
+| BatchNormalization | | 20 |
+| LeakyReLU | | |
+| Dropout | 50% | |
+| --- | --- | --- |
+| Dense | (1) | 11 |
+| BatchNormalization | | 2 |
+| Activation | 1 |  |
 ____________________________________________________________________________________________________
 Total parameters: 187331
 
