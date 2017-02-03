@@ -21,7 +21,7 @@ The Udacity dataset was recorded on track 1 of the Udacity Simualtor in an anti-
 
 
 ### Neural Network Design
-The Neural Network Design is based on the [NVIDIA network](http://images.nvidia.com/content/tegra/automotive/images/2016/solutions/pdf/end-to-end-dl-using-px.pdf) used in their DAVE-2 System. It has 5 Convolutional layers and 3 Fully Connected layers. The 1st, 3rd and 5th Convolutional layers are followed by Max-Pooling layers and each Fully Connected layer followed by a Dropout layer. The network ends with a Linear Activation layer, as is normal for regression learning.
+The Neural Network Design is based on the [NVIDIA network](http://images.nvidia.com/content/tegra/automotive/images/2016/solutions/pdf/end-to-end-dl-using-px.pdf) used in their DAVE-2 System. It has 5 Convolutional layers and 3 Fully Connected layers. The 1st, 3rd and 5th Convolutional layers are followed by Max-Pooling layers and each Fully Connected layer followed by a Dropout layer (to reduce overfitting). The network ends with a Linear Activation layer, as is normal for regression learning.
 
 The BatchNormalization layer centers the data to zero-mean and unit variance. In training deep networks, if only the input is normalized, hidden layers gradually deviate from zero mean and unit covariance. This is know as [internal co-varaiate shift](http://jmlr.org/proceedings/papers/v37/ioffe15.pdf). Batch Normalization is used to counter this and is commonly used either before or after the Activation layer. In this network it is used before the Activation layer.
 
