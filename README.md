@@ -15,6 +15,8 @@ The Udacity dataset was used for training. Additional data was not generated bec
 
 In order to ensure that the dataset is properly organized, the correct image and it's 'center camera' turning angle are matched together. The turning angle is increased or decreased by 0.25 depending on whether the image is from the left or right camera respectively. In order to remove the unnecessary sky and car bonnet, the dataset images were cropped from 160x320 to 80x320 pixels. The images were then resized to 64x64 pixels and saved in a pickled file for ease of loading.
 
+![Data Processing](https://raw.githubusercontent.com/Dave-Browne/CarND_P3-Behavioral-Cloning/Master/img/Processed_Images.jpg)
+
 
 ### Data Augmentation
 The Udacity dataset was recorded on track 1 of the Udacity Simualtor in an anti-clockwise direction only. This results in a majority of straight and left turn data. In order to balance the dataset, all images with a turning angle greater than 0.07 or less than -0.07 are flipped along the vertical axis. The corresponding turning angle is multiplied by -1 and this new data added to the dataset. The number of data points increased from 24k to 42k (75% increase). This also assured a balanced learning between left and right turns.
