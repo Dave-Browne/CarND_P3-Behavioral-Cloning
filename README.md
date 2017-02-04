@@ -10,6 +10,22 @@ Build and train a neural network to learn to steer a car on the Udacity Simulato
 The results of this project are that the Udacity Simulator car can successfully drive itself around track 1. The limitations discovered in using the Keras ImageDataGenerator have shed invaluable insight into using Convolutional Neural Networks to solve regression problems.
 
 
+### Files Submitted & Code Quality
+
+My project includes the following files:
+
+    model.py - contains the script to create and train the model
+    drive.py - for driving the car in autonomous mode
+    model.json - contains a trained convolution neural network
+    READMER.md - summarizes the results
+
+Using the Udacity provided simulator and drive.py, the car can be driven autonomously around the track by executing
+
+*python drive.py model.json*
+
+The model.py file contains the code for training and saving the convolution neural network. The file shows the pipeline used for training and validating the model, and it contains comments to explain how the code works.
+
+
 ### Data Processing
 The Udacity dataset was used for training. It was recorded on track 1 of the Udacity Simulator. Additional data was not generated because steering the car with the keyboard produces discontinuous turning angle data. The data consists pre-dominantely of zero turn data for the center camera. Images for the left and right cameras are provided, but without a turning angle.
 
