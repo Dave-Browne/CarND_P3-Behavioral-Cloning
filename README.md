@@ -11,15 +11,19 @@ The results of this project are that the Udacity Simulator car can successfully 
 
 
 ### Data Processing
-The Udacity dataset was used for training. Additional data was not generated because steering the car with the keyboard produces discontinuous turning angle data. 
+The Udacity dataset was used for training. It was recorded on track 1 of the Udacity Simulator. Additional data was not generated because steering the car with the keyboard produces discontinuous turning angle data. The data consists pre-dominantely of zero turn data for the center camera. Images for the left and right cameras are provided, but without a turning angle.
 
-In order to ensure that the dataset is properly organized, the correct image and it's 'center camera' turning angle are matched together. The turning angle is then increased or decreased by 0.25 and matched to the left or right camera image respectively. In order to remove the unnecessary sky and car bonnet, the dataset images were cropped from 160x320 to 80x320 pixels. The images were then resized to 64x64 pixels. 
+In order to ensure that the dataset is properly organized, the correct image and it's 'center camera' turning angle are matched together. The turning angle is then increased or decreased by 0.25 and matched to the left or right camera images respectively. This results in in a data distribution seen in the *Before Augmentation* figure below. The predominant -0.25, 0 and 0.25 turning angle images are understood.
 
-![Processed Images](https://cloud.githubusercontent.com/assets/22233694/22588429/74891b4c-ea0e-11e6-8ba8-e79e66e3f6ba.jpg "Processed Images")
+In order to remove the unnecessary sky and car bonnet from each image, the dataset images are cropped from 160x320 to 80x320 pixels. The images are then resized to 64x64 pixels. 
+
+![Pre Augmentation](https://cloud.githubusercontent.com/assets/22233694/22617144/ffc5f0d8-eac5-11e6-9b6a-35898e4cb486.png "Pre Augmentation")
 
 
 ### Data Augmentation
-The Udacity dataset was recorded on track 1 of the Udacity Simualtor in an anti-clockwise direction only. This results in a majority of straight and left turn data. In order to balance the dataset, all images with a turning angle greater than 0.07 or less than -0.07 are flipped along the vertical axis. The corresponding turning angle is multiplied by -1 and this new data added to the dataset. The number of data points increased from 24k to 42k (75% increase). This also assured a balanced learning between left and right turns.
+The performance of the car is enhanced by providing more turning data during training. In order to do this, all images with a turning angle greater than 0.05 or less than -0.05 are flipped along the vertical axis. The corresponding turning angle is multiplied by -1 and this new data added to the dataset. The number of data points increased from 24k to 43k (78% increase).
+
+![Post Augmentation](https://cloud.githubusercontent.com/assets/22233694/22617143/fdcb6ace-eac5-11e6-8795-4996c8b6978c.png "Post Augmentation")
 
 
 ### Neural Network Design
@@ -85,10 +89,10 @@ The model is compiled using the Adam optimizer as it has a built-in decaying lea
 
 A Data Generator is used to prevent saturating memory with large datasets. To improve efficiency, the generator is run in parallel to the model. This allows real-time data augmentation on images on CPU in parallel to training the model on GPU. [See Keras documentation](https://keras.io/models/sequential/). 
 
-Due to the simplicity of the Keras generator, the Keras ImageDataGenerator is used to produce the training and validation batches for this network. No augmentation is done in the ImageDataGenerator as the data balancing is sufficient. There are, however, two very important negative consequences to choosing the Keras ImageDataGenerator over a custom generator. They are:
+Due to the simplicity of the Keras generator, the Keras ImageDataGenerator is used to produce the training and validation batches for this network. No augmentation is done in the ImageDataGenerator as the ealier data augmentation is sufficient. There are two very important negative consequences to choosing the Keras ImageDataGenerator over a custom generator. They are:
 
 - Certain image augmentation functions cannot be done with the Keras ImageDataGenerator. Amongst them are random image brightening, horizontal shift and horizontal flip. This is because the turning angle does not change when an image is altered, resulting in an INCORRECT turning angle associated with the augmented image. This will negatively train the model.
-- The input and validation datasets are split (ratio 85:15) outside the generator. The training and validation data are now fixed and will not be shuffled together inbetween epochs. This means that if during each epoch the network is trained on the entire input dataset and is validated on the entire validation dataset, it will see exactly the same data every epoch. This is terrible for generalizing a network. To overcome this, each epoch ends after being trained on 50% of the images and validated on 33% of the validation set. The datasets are then shuffled and 'new' data is trained and validated on.
+- The input and validation datasets are split (ratio 85:15) outside the generator. The training and validation data are now fixed and will not be shuffled together inbetween epochs. This means that if during each epoch the network is trained on the entire input dataset and is validated on the entire validation dataset, it will see exactly the same data every epoch. This is terrible for generalizing a network. To overcome this, each epoch ends after being trained and validated on 50% of the images in the training and validation datasets respectively. The datasets are then shuffled and 'new' data is trained and validated on.
 
 The model was not updated to use a custom generator as it is possible to achieve the goal of this project with the Keras generator. The lessons learnt above are also invaluable and using a custom generator would not have brought them to light. The model also allows the car to complete most of the 2nd track on the 'Fastest' quality setting. It however cannot overcome the shadows in higher quality runs. 
 
@@ -98,10 +102,10 @@ The model is tested on the Udacity Simulator, tracks 1 and 2. The SCD Nanodegree
 
 The model successfully steers the car around track 1 on all screen resolutions and all graphics quality settings. It is expected that the car attempts to avoid the shadows on the road as no 'shadow image augmentation' was done.
 
-Track 2 was completely unseen during training and provides for an interesting test of how generalized the model is. On the lowest quality setting (no shadows) the car makes it almost to the end of the track, **************succesfully************ steering through most of the tight corners. It is unable to get up the last hill.
+Track 2 was completely unseen during training and provides for an interesting test of how generalized the model is. On the lowest quality setting (no shadows) the car almost makes it almost to the end of the track, getting stuck on a tight right hand corner before the steep hill. It steers succesfully through all of the previous corners.
 
 
 ### Future Improvements
-Due to the lessons learnt and short time available to complete this project (1 week), there are a few simple improvements that can be done to improve the generalization of the model. They are:
+Due to the lessons learnt and short time available to complete this project (approx 10 days), there are a few simple improvements that can be done to improve the generalization of the model. They are:
 - Use a custom generator
 - Use data augmentation in the custom generator, eg shadows, brightness, image shift and horizontal flip
