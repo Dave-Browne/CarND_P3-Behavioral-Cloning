@@ -13,7 +13,7 @@ The results of this project are that the Udacity Simulator car can successfully 
 ### Data Processing
 The Udacity dataset was used for training. It was recorded on track 1 of the Udacity Simulator. Additional data was not generated because steering the car with the keyboard produces discontinuous turning angle data. The data consists pre-dominantely of zero turn data for the center camera. Images for the left and right cameras are provided, but without a turning angle.
 
-In order to ensure that the dataset is properly organized, the correct image and it's 'center camera' turning angle are matched together. The turning angle is then increased or decreased by 0.25 and matched to the left or right camera images respectively. This results in in a data distribution seen in the *Before Augmentation* figure below. The predominant -0.25, 0 and 0.25 turning angle images are understood.
+In order to ensure that the dataset is properly organized, the correct image and it's 'center camera' turning angle are matched together. The turning angle is then increased or decreased by 0.25 and matched to the left or right camera images respectively. This results in a data distribution seen in the *Before Augmentation* figure below. The number of -0.25, 0 and 0.25 turning angle images are the result of shifting the 0 turn angle by +- 0.25.
 
 In order to remove the unnecessary sky and car bonnet from each image, the dataset images are cropped from 160x320 to 80x320 pixels. The images are then resized to 64x64 pixels. 
 
