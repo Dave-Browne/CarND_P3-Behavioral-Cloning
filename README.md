@@ -123,5 +123,6 @@ Track 2 was completely unseen during training and provides for an interesting te
 
 ### Future Improvements
 Due to the lessons learnt and short time available to complete this project (approx 10 days), there are a few simple improvements that can be done to improve the generalization of the model. They are:
+- Balance the dataset so that there is no spike in 0, =0.25 and -0.25 data.
 - Use a custom generator
 - Use data augmentation in the custom generator, eg shadows, brightness, image shift and horizontal flip
